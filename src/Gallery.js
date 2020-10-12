@@ -6,7 +6,7 @@ function Gallery() {
   return (
     <div className="gallery">
       {data.documents.map((photo) => (
-        <Photo source={photo.raw} />
+        <Photo source={photo.raw} name={photo.name} album={photo.album} />
       ))}
     </div>
   );

@@ -27,8 +27,22 @@
   grid-auto-rows: 270px;
   margin-top: 24px;
 }
+
 .photo-thumbnail {
   height: 200px;
   width: 250px;
   border-radius: 2px;
+}
+
+.photo-name {
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+.photo-album {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 2px;
 }
