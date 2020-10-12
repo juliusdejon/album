@@ -1,11 +1,14 @@
 import React from 'react';
 
-function Header() {
+function Header({ toggleModal }) {
   return (
     <div className="header">
       <div className="header-title">Photos</div>
       <div className="header-actions">
-        <span clas>Upload</span> | <span>25</span>
+        <span className="upload-btn" onClick={toggleModal}>
+          Upload
+        </span>
+        | <span>25</span>
       </div>
     </div>
   );
