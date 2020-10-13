@@ -167,3 +167,9 @@ input[type='file'] {
   background: none;
   margin-left: 12px;
 }
+
+.checked {
+  position: absolute;
+  margin-left: 4px;
+  z-index: 1;
+}

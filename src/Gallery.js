@@ -7,6 +7,7 @@ const LIST_PHOTOS_ENDPOINT = `${process.env.REACT_APP_API_BASE_URL}/photos/list`
 
 function Gallery({ pagination }) {
   const [photos, setPhotos] = useState([]);
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
 
   useEffect(() => {
     async function fetchPhotos() {
@@ -22,9 +23,12 @@ function Gallery({ pagination }) {
       {photos.map((photo) => (
         <Photo
           key={photo.id}
+          id={photo.id}
           source={photo.raw}
           name={photo.name}
           album={photo.album}
+          selectedPhotos={selectedPhotos}
+          setSelectedPhotos={setSelectedPhotos}
         />
       ))}
     </div>
