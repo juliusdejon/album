@@ -48,6 +48,8 @@
 }
 
 .upload-btn {
+  margin-right: 12px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -158,4 +160,10 @@ input[type='file'] {
   font-size: 8px;
   font-weight: bold;
   text-align: center;
+}
+
+.pagination {
+  border: none;
+  background: none;
+  margin-left: 12px;
 }
