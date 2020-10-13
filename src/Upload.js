@@ -26,7 +26,7 @@ function Upload({ modal, toggleModal }) {
     };
 
     const response = await axios.put(UPLOAD_ENDPOINT, data, config);
-    if (response.status == 200) {
+    if (response.status === 200) {
       toggleModal(!modal);
     }
     return response;
@@ -58,6 +58,7 @@ function Upload({ modal, toggleModal }) {
                   <div key={i}>
                     <img
                       src={URL.createObjectURL(file)}
+                      alt={file.name}
                       className="preview-photo"
                     />
                     <div className="preview-filename">{file.name}</div>
