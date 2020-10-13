@@ -8,28 +8,20 @@ function Upload({ modal, toggleModal }) {
 
   const onFileChange = (event) => {
     const selectedFiles = event.target.files;
-    console.log(selectedFiles);
     setFiles(selectedFiles);
   };
 
   const handleUpload = () => {
-    const formData = new FormData();
-    formData.append('album', 'Personal');
-    Object.values(files).map((img) => formData.append('documents', img.name));
-    console.log(files);
-    console.log(formData);
+    const data = new FormData();
+    data.append('album', 'personal');
+    const filesArr = Object.values(files);
+    filesArr.forEach((file) => data.append('documents', file));
+
     const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
+      headers: { 'content-type': 'multipart/form-data' },
     };
-    const response = axios({
-      method: 'PUT',
-      url: UPLOAD_ENDPOINT,
-      config,
-      data: formData,
-    }).catch((err) => console.log(err));
-    console.log(response);
+
+    return axios.put(UPLOAD_ENDPOINT, data, config);
   };
 
   return (
