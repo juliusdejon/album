@@ -5,20 +5,17 @@ import Photo from './Photo';
 
 const LIST_PHOTOS_ENDPOINT = `${process.env.REACT_APP_API_BASE_URL}/photos/list`;
 
-function Gallery() {
+function Gallery({ pagination }) {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     async function fetchPhotos() {
-      const data = {
-        skip: 0,
-        limit: 5,
-      };
+      const data = pagination;
       const response = await axios.post(LIST_PHOTOS_ENDPOINT, data);
       setPhotos(response?.data?.documents);
     }
     fetchPhotos();
-  }, []);
+  }, [pagination]);
 
   return (
     <div className="gallery">
