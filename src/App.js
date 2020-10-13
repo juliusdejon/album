@@ -5,7 +5,7 @@ import Header from './Header';
 import Upload from './Upload';
 
 function App() {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);

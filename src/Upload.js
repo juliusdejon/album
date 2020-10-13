@@ -5,23 +5,31 @@ const UPLOAD_ENDPOINT = `${process.env.REACT_APP_API_BASE_URL}/photos`;
 
 function Upload({ modal, toggleModal }) {
   const [files, setFiles] = useState([]);
+  const [album, setAlbum] = useState('');
+
+  const onAlbumChange = (e) => {
+    setAlbum(e.target.value);
+  };
 
   const onFileChange = (event) => {
     const selectedFiles = event.target.files;
-    setFiles(selectedFiles);
+    setFiles(Object.values(selectedFiles));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     const data = new FormData();
-    data.append('album', 'personal');
-    const filesArr = Object.values(files);
-    filesArr.forEach((file) => data.append('documents', file));
+    data.append('album', album);
+    files.forEach((file) => data.append('documents', file));
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
     };
 
-    return axios.put(UPLOAD_ENDPOINT, data, config);
+    const response = await axios.put(UPLOAD_ENDPOINT, data, config);
+    if (response.status == 200) {
+      toggleModal(!modal);
+    }
+    return response;
   };
 
   return (
@@ -33,24 +41,53 @@ function Upload({ modal, toggleModal }) {
             &times;
           </span>
         </div>
-        <label htmlFor="file-upload" className="drag-and-drop-container">
-          Drag n drop some files here, or click to select files
-        </label>
-        <input id="file-upload" type="file" multiple onChange={onFileChange} />
-        <div className="preview">No files selected...</div>
-        <div className="modal-footer">
-          <div className="modal-footer-actions">
-            <select className="dropdown">
-              <option value="volvo">Select album</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
-            </select>
-            <div className="upload" onClick={handleUpload}>
-              Upload
+        <form>
+          <label htmlFor="file-upload" className="drag-and-drop-container">
+            Drag n drop some files here, or click to select files
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            multiple
+            onChange={onFileChange}
+          />
+
+          <div className="preview">
+            {files.length > 0
+              ? files.map((file, i) => (
+                  <div key={i}>
+                    <img
+                      src={URL.createObjectURL(file)}
+                      className="preview-photo"
+                    />
+                    <div className="preview-filename">{file.name}</div>
+                  </div>
+                ))
+              : 'No files selected...'}
+          </div>
+          <div className="modal-footer">
+            <div className="modal-footer-actions">
+              <select
+                className="dropdown"
+                value={album}
+                onChange={onAlbumChange}
+                required
+              >
+                <option value="">Select album</option>
+                <option value="personal">Personal</option>
+                <option value="travel">Travel</option>
+                <option value="food">Food</option>
+                <option value="nature">Nature</option>
+              </select>
+              <input
+                type="submit"
+                className="upload"
+                onClick={handleUpload}
+                value="Upload"
+              />
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
