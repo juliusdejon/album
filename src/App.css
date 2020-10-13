@@ -173,3 +173,8 @@ input[type='file'] {
   margin-left: 4px;
   z-index: 1;
 }
+
+.delete-btn {
+  cursor: pointer;
+  font-size: 14px;
+}

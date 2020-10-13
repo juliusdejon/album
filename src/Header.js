@@ -1,13 +1,27 @@
 import React from 'react';
+import axios from 'axios';
 
-function Header({ pagination, setPagination, toggleModal }) {
+const DELETE_PHOTOS_ENDPOINT = `${process.env.REACT_APP_API_BASE_URL}/photos`;
+
+function Header({ pagination, setPagination, toggleModal, selectedPhotos }) {
   const onPaginationChange = (e) => {
     setPagination({ skip: 0, limit: parseInt(e.target.value) });
+  };
+
+  const handleDelete = () => {
+    axios.delete(DELETE_PHOTOS_ENDPOINT, {
+      data: [], // this is where the delete goes
+    });
   };
   return (
     <div className="header">
       <div className="header-title">Photos</div>
       <div className="header-actions">
+        {selectedPhotos.length > 0 && (
+          <span className="delete-btn" onClick={handleDelete}>
+            Delete {selectedPhotos.length} |
+          </span>
+        )}{' '}
         <span className="upload-btn" onClick={toggleModal}>
           Upload
         </span>

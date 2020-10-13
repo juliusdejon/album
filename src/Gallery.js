@@ -5,9 +5,8 @@ import Photo from './Photo';
 
 const LIST_PHOTOS_ENDPOINT = `${process.env.REACT_APP_API_BASE_URL}/photos/list`;
 
-function Gallery({ pagination }) {
+function Gallery({ pagination, selectedPhotos, setSelectedPhotos }) {
   const [photos, setPhotos] = useState([]);
-  const [selectedPhotos, setSelectedPhotos] = useState([]);
 
   useEffect(() => {
     async function fetchPhotos() {
