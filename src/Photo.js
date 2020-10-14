@@ -10,26 +10,37 @@ export const Photo = ({
   setSelectedPhotos,
 }) => {
   const handleSelect = () => {
-    const copyOfPhotos = [...selectedPhotos];
-    if (copyOfPhotos.includes(id)) {
-      const index = copyOfPhotos.indexOf(id);
-      if (index > -1) {
-        copyOfPhotos.splice(index, 1);
-        setSelectedPhotos(copyOfPhotos);
-      }
+    if (selectedPhotos.length > 0) {
+      selectedPhotos.forEach((photo, index) => {
+        const documentArr = photo.documents.split(',');
+        if (photo.album === album && documentArr.includes(name)) {
+          const newPhotos = selectedPhotos.filter(() => {
+            if (documentArr.includes(name) === true) {
+              documentArr.splice(index, 1);
+              if (documentArr.length > 1) {
+                return { ...album, documents: documentArr.toString() };
+              }
+            }
+          });
+          setSelectedPhotos(newPhotos);
+        } else {
+          setSelectedPhotos([...selectedPhotos, { album, documents: name }]);
+        }
+      });
     } else {
-      setSelectedPhotos([...selectedPhotos, id]);
+      setSelectedPhotos([{ album, documents: name }]);
     }
   };
 
-  const isSelected = selectedPhotos.includes(id);
+  // const isSelected = selectedPhotos.filter((photo) => photo.id !== id);
+  // console.log(isSelected);
 
   return (
     <div onClick={handleSelect}>
-      {isSelected && <div className="checked">✅</div>}
+      {/* {isSelected && <div className="checked">✅</div>} */}
       <img
         className="photo-thumbnail"
-        style={{ opacity: isSelected && '0.8' }}
+        // style={{ opacity: isSelected && '0.8' }}
         src={source}
         alt={source}
       />

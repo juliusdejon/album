@@ -8,13 +8,13 @@ function Header({ pagination, setPagination, toggleModal, selectedPhotos }) {
     setPagination({ skip: 0, limit: parseInt(e.target.value) });
   };
 
-  console.log('hello', selectedPhotos);
   const handleDelete = async () => {
     const response = await axios({
       method: 'DELETE',
       url: DELETE_PHOTOS_ENDPOINT,
       data: selectedPhotos,
     });
+    window.location.reload();
     return response;
   };
   return (
