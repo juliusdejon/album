@@ -8,10 +8,14 @@ function Header({ pagination, setPagination, toggleModal, selectedPhotos }) {
     setPagination({ skip: 0, limit: parseInt(e.target.value) });
   };
 
-  const handleDelete = () => {
-    axios.delete(DELETE_PHOTOS_ENDPOINT, {
-      data: [], // this is where the delete goes
+  console.log('hello', selectedPhotos);
+  const handleDelete = async () => {
+    const response = await axios({
+      method: 'DELETE',
+      url: DELETE_PHOTOS_ENDPOINT,
+      data: selectedPhotos,
     });
+    return response;
   };
   return (
     <div className="header">
